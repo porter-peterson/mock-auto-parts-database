@@ -168,3 +168,51 @@ INSERT INTO Tool (inventoryID, partName, toolCost)
         ((SELECT inventoryID FROM Inventory WHERE inventoryID = 11), 'Tire Pressure Gauge', 6.99)
 
 SELECT * FROM Tool
+
+INSERT INTO Customer (storeID, firstName, middleName, lastName, email, phone, customerAddress, isCommercial)
+    VALUES
+        ((SELECT storeID FROM Store WHERE storeID = 1), 'Ollie', NULL, 'Swintho', 'Oswin21@gmail.com', '435-091-8431', '832 Main St, Cedar City, UT', 0),
+        ((SELECT storeID FROM Store WHERE storeID = 1), 'Anderson', 'Ann', 'Ross', 'ArossA@yahoo.com', '435-012-2311', '312 East St, Cedar City, UT', 1),
+        ((SELECT storeID FROM Store WHERE storeID = 1), 'Aguilar', 'Alexander', 'Brian', 'BrainA@yahoo.com.com', '435-112-2211', '982 Cedar City Dr, Cedar City, UT', 1),
+        ((SELECT storeID FROM Store WHERE storeID = 3), 'Baker', NULL, 'Jayden', NULL, '435-091-8431', '732 Builder St, Ogden, UT', 0),
+        ((SELECT storeID FROM Store WHERE storeID = 4), 'Cahalin', 'Bridget', 'Erin', NULL, '801-932-2182', '993 Beaver Dr, Salt Lake City, UT', 0),
+        ((SELECT storeID FROM Store WHERE storeID = 7), 'Dempsey', 'Clarissa', 'Kylee', 'Dempsey28923@gmail.com', '702-832-1200', '0219 Bridgewater St, Las Vegas, NV', 1),
+        ((SELECT storeID FROM Store WHERE storeID = 8), 'Denton', NULL, 'Brayden', 'Denton32Bray@outlook.com', '702-902-9201', '9320 Boulder Dr, Henderson, NV', 1),
+        ((SELECT storeID FROM Store WHERE storeID = 9), 'Ebbert', NULL, 'Haley', NULL, '702-904-9530', '0932 High Land Dt, Reno, NV', 0),
+        ((SELECT storeID FROM Store WHERE storeID = 9), 'Flores', 'Anthony', 'Devon', 'DAFLO842@gmail.com', '702-843-5432', '9320 Upper Leval Dr, Reno, NV', 0),
+        ((SELECT storeID FROM Store WHERE storeID = 10), 'Hall', NULL, 'Jake', NULL, '702-555-5584', '3299 Homeland St, Carson City, NV', 0),
+        ((SELECT storeID FROM Store WHERE storeID = 11), 'Jules', 'Grant', 'Sawyer', 'Julesdoes32@hotmail.com', '702-753-7546', '8329 Fever Dr, Mesquite, NV', 1)
+
+SELECT * FROM Customer
+
+INSERT INTO Part (inventoryId, partCost, partName, category)
+    VALUES
+        ((SELECT inventoryID FROM Inventory WHERE inventoryID = 1), 59.99, 'Control Arm', 'Suspension'),
+        ((SELECT inventoryID FROM Inventory WHERE inventoryID = 2), 29.99, 'Ball Joint', 'Suspension'),
+        ((SELECT inventoryID FROM Inventory WHERE inventoryID = 3), 79.99, 'Shocks/Struts', 'Suspension'),
+        ((SELECT inventoryID FROM Inventory WHERE inventoryID = 4), 5.99, 'Spark Plugs', 'Ignition'),
+        ((SELECT inventoryID FROM Inventory WHERE inventoryID = 5), 99.99, 'Ignition Coil Pack', 'Ignition'),
+        ((SELECT inventoryID FROM Inventory WHERE inventoryID = 6), 119.99, 'Radiator Assembly', 'Cooling'),
+        ((SELECT inventoryID FROM Inventory WHERE inventoryID = 7), 49.99, 'Upper Radiator Hose', 'Cooling'),
+        ((SELECT inventoryID FROM Inventory WHERE inventoryID = 8), 49.99, 'Lower Radiator Hose', 'Cooling'),
+        ((SELECT inventoryID FROM Inventory WHERE inventoryID = 9), 39.99, 'Brake Pads', 'Brakes'),
+        ((SELECT inventoryID FROM Inventory WHERE inventoryID = 10), 99.99, 'Rotors', 'Brakes'),
+        ((SELECT inventoryID FROM Inventory WHERE inventoryID = 11), 89.99, 'Calipers', 'Brakes')
+
+SELECT * FROM Part
+
+INSERT INTO Rental (toolID, rentalPeriod)
+    VALUES
+        ((SELECT toolID FROM Tool WHERE toolID = 1), 5),
+        ((SELECT toolID FROM Tool WHERE toolID = 5), 3),
+        ((SELECT toolID FROM Tool WHERE toolID = 2), 8),
+        ((SELECT toolID FROM Tool WHERE toolID = 7), 2),
+        ((SELECT toolID FROM Tool WHERE toolID = 10), 1),
+        ((SELECT toolID FROM Tool WHERE toolID = 11), 9),
+        ((SELECT toolID FROM Tool WHERE toolID = 3), 10),
+        ((SELECT toolID FROM Tool WHERE toolID = 4), 15),
+        ((SELECT toolID FROM Tool WHERE toolID = 9), 6),
+        ((SELECT toolID FROM Tool WHERE toolID = 1), 5),
+        ((SELECT toolID FROM Tool WHERE toolID = 8), 12)
+
+SELECT * FROM Rental
