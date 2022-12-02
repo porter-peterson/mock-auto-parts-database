@@ -13,9 +13,9 @@ CREATE TABLE Store
     storeAddress VARCHAR(500) NOT NULL
 )
 
-CREATE TABLE Invetory 
+CREATE TABLE Inventory 
 ( ------------------- alter and make FK not null
-    invetoryID INT NOT NULL PRIMARY KEY,
+    inventoryID INT NOT NULL PRIMARY KEY,
     storeID INT NOT NULL,
     FOREIGN KEY (storeID) REFERENCES Store(storeID)
 )
@@ -53,8 +53,8 @@ CREATE TABLE Customer
 CREATE TABLE Tool 
 (
     toolID INT NOT NULL PRIMARY KEY,
-    invetoryID INT NOT NULL,
-    FOREIGN KEY (invetoryID) REFERENCES Invetory(invetoryID),
+    inventoryID INT NOT NULL,
+    FOREIGN KEY (inventoryID) REFERENCES Inventory(inventoryID),
     partName VARCHAR(255),
     toolCost DECIMAL(38, 2) NOT NULL, ----- POSSIBLY NEED TO CHANGE
 )
@@ -71,7 +71,7 @@ CREATE TABLE Part
 (
     partID INT NOT NULL PRIMARY KEY,
     invetoryID INT NOT NULL,
-    FOREIGN KEY (invetoryID) REFERENCES Invetory(invetoryID),
+    FOREIGN KEY (inventoryID) REFERENCES Inventory(inventoryID),
     partCost DECIMAL(38, 2) NOT NULL, ----- POSSIBLY NEED TO CHANGE
     partName VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL,
