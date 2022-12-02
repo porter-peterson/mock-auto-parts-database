@@ -94,7 +94,8 @@ CREATE TABLE Part
 --     cartID INT NOT NULL,
 --     FOREIGN KEY(cartID) REFERENCES ShoppingCart(cartID),
 --     totalCost DECIMAL(38, 2) NOT NULL, ----- POSSIBLY NEED TO CHANGE
---     isDeliver BIT NOT NULL
+--     isDeliver BIT NOT NULL,
+--     saleDate DATE NOT NULL
 -- )
 
 
