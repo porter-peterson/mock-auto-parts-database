@@ -14,7 +14,7 @@ CREATE TABLE Store
 )
 
 CREATE TABLE Inventory 
-( ------------------- alter and make FK not null
+(
     inventoryID INT NOT NULL PRIMARY KEY,
     storeID INT NOT NULL,
     FOREIGN KEY (storeID) REFERENCES Store(storeID)
