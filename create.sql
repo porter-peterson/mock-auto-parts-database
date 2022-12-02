@@ -57,7 +57,7 @@ CREATE TABLE Tool
     inventoryID INT NOT NULL,
     FOREIGN KEY (inventoryID) REFERENCES Inventory(inventoryID),
     partName VARCHAR(255),
-    toolCost DECIMAL(38, 2) NOT NULL, ----- POSSIBLY NEED TO CHANGE
+    toolCost DECIMAL(38, 2) NOT NULL ----- POSSIBLY NEED TO CHANGE
 )
 
 CREATE TABLE Rental 
@@ -75,7 +75,7 @@ CREATE TABLE Part
     FOREIGN KEY (inventoryID) REFERENCES Inventory(inventoryID),
     partCost DECIMAL(38, 2) NOT NULL, ----- POSSIBLY NEED TO CHANGE
     partName VARCHAR(255) NOT NULL,
-    category VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL
 )
 
 -- CREATE TABLE ShoppingCart 
