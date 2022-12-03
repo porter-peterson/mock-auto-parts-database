@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS AutoPartsStore
+
 ------------------------------------------------
 -- Create table for our Mock Auto Parts Store --
 ------------------------------------------------
@@ -78,27 +80,28 @@ CREATE TABLE Part
     category VARCHAR(255) NOT NULL
 )
 
--- CREATE TABLE ShoppingCart 
--- (
---     cartID INT IDENTITY(1,1) PRIMARY KEY,
---     customerID INT NOT NULL,
---     FOREIGN KEY (customerID) REFERENCES Customer(customerID),
---     employeeID INT NOT NULL,
---     FOREIGN KEY (employeeID) REFERENCES Employee(employeeID),
---     partID INT NOT NULL,
---     FOREIGN KEY (employeeID) REFERENCES Employee(employeeID),
--- )
+CREATE TABLE ShoppingCart 
+(
+    cartID INT NOT NULL PRIMARY KEY,
+    customerID INT,
+    FOREIGN KEY (customerID) REFERENCES Customer(customerID),
+    employeeID INT,
+    FOREIGN KEY (employeeID) REFERENCES Employee(employeeID),
+    partID INT,
+    FOREIGN KEY (partID) REFERENCES Part(partID),
+    rentalID INt,
+    FOREIGN KEY (rentalID) REFERENCES Rental(rentalID),
+)
 
--- CREATE TABLE Sales 
--- (
---     saleID INT IDENTITY(1,1) PRIMARY KEY,
---     cartID INT NOT NULL,
---     FOREIGN KEY(cartID) REFERENCES ShoppingCart(cartID),
---     totalCost DECIMAL(38, 2) NOT NULL, ----- POSSIBLY NEED TO CHANGE
---     isDeliver BIT NOT NULL,
---     saleDate DATE NOT NULL
--- )
-
+CREATE TABLE Sales 
+(
+    saleID INT IDENTITY(1,1) PRIMARY KEY,
+    cartID INT NOT NULL,
+    FOREIGN KEY(cartID) REFERENCES ShoppingCart(cartID),
+    totalCost DECIMAL(38, 2), ----- POSSIBLY NEED TO CHANGE
+    isDeliver BIT NOT NULL,
+    saleDate DATE NOT NULL
+)
 
 ------------------------------------------------
 --       Insert "Fake" Test Data              --
@@ -216,3 +219,36 @@ INSERT INTO Rental (toolID, rentalPeriod)
         ((SELECT toolID FROM Tool WHERE toolID = 8), 12)
 
 SELECT * FROM Rental
+
+INSERT INTO ShoppingCart (cartID, customerID, employeeID, partID, rentalID)
+    VALUES
+        (1, (SELECT customerID FROM Customer WHERE customerID = 1), (SELECT employeeId FROM Employee WHERE employeeId = 1), (SELECT partID FROM Part WHERE partID = 1), (SELECT rentalID FROM Rental WHERE rentalID = 1)),
+        (2, (SELECT customerID FROM Customer WHERE customerID = 1), (SELECT employeeId FROM Employee WHERE employeeId = 1), (SELECT partID FROM Part WHERE partID = 3), NULL),
+        (3, (SELECT customerID FROM Customer WHERE customerID = 1), (SELECT employeeId FROM Employee WHERE employeeId = 1), (SELECT partID FROM Part WHERE partID = 6), (SELECT rentalID FROM Rental WHERE rentalID = 4)),
+        (4, (SELECT customerID FROM Customer WHERE customerID = 1), (SELECT employeeId FROM Employee WHERE employeeId = 1), NULL, (SELECT rentalID FROM Rental WHERE rentalID = 9)),
+        (5, (SELECT customerID FROM Customer WHERE customerID = 2), (SELECT employeeId FROM Employee WHERE employeeId = 6), (SELECT partID FROM Part WHERE partID = 10), NULL),
+        (6, (SELECT customerID FROM Customer WHERE customerID = 2), (SELECT employeeId FROM Employee WHERE employeeId = 6), (SELECT partID FROM Part WHERE partID = 2), NULL),
+        (7, (SELECT customerID FROM Customer WHERE customerID = 3), (SELECT employeeId FROM Employee WHERE employeeId = 6), (SELECT partID FROM Part WHERE partID = 10), NULL),
+        (8, (SELECT customerID FROM Customer WHERE customerID = 5), (SELECT employeeId FROM Employee WHERE employeeId = 2), (SELECT partID FROM Part WHERE partID = 10), NULL),
+        (9, (SELECT customerID FROM Customer WHERE customerID = 5), (SELECT employeeId FROM Employee WHERE employeeId = 2), (SELECT partID FROM Part WHERE partID = 10), NULL),
+        (10, (SELECT customerID FROM Customer WHERE customerID = 2), (SELECT employeeId FROM Employee WHERE employeeId = 1), (SELECT partID FROM Part WHERE partID = 10), NULL),
+        (11, (SELECT customerID FROM Customer WHERE customerID = 2), (SELECT employeeId FROM Employee WHERE employeeId = 1), (SELECT partID FROM Part WHERE partID = 2), NULL)
+
+SELECT * FROM ShoppingCart
+
+
+INSERT INTO Sales (cartID, totalCost, isDeliver, saleDate)
+    VALUES 
+        ((SELECT cartID FROM ShoppingCart WHERE cartID = 1), NULL, 0, '20221130'),
+        ((SELECT cartID FROM ShoppingCart WHERE cartID = 2), NULL, 1, '20221202'),
+        ((SELECT cartID FROM ShoppingCart WHERE cartID = 3), NULL, 0, '20221202'),
+        ((SELECT cartID FROM ShoppingCart WHERE cartID = 4), NULL, 0, '20221202'),
+        ((SELECT cartID FROM ShoppingCart WHERE cartID = 5), NULL, 0, '20221202'),
+        ((SELECT cartID FROM ShoppingCart WHERE cartID = 6), NULL, 1, '20221202'),
+        ((SELECT cartID FROM ShoppingCart WHERE cartID = 7), NULL, 1, '20221202'),
+        ((SELECT cartID FROM ShoppingCart WHERE cartID = 8), NULL, 0, '20221202'),
+        ((SELECT cartID FROM ShoppingCart WHERE cartID = 9), NULL, 0, '20221202'),
+        ((SELECT cartID FROM ShoppingCart WHERE cartID = 10), NULL, 0, '20221202'),
+        ((SELECT cartID FROM ShoppingCart WHERE cartID = 11), NULL, 0, '20221202')
+
+SELECT * FROM Sales        
